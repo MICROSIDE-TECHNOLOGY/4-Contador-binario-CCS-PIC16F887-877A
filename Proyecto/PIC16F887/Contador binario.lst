@@ -1,0 +1,162 @@
+CCS PCM C Compiler, Version 5.076, 56587               24-feb.-22 10:23
+
+               Filename:   E:\Martin Hdez\Desktop\CCS 16F\887\Práctica 4\Contador binario.lst
+
+               ROM used:   79 words (1%)
+                           Largest free fragment is 2048
+               RAM used:   6 (2%) at main() level
+                           7 (2%) worst case
+               Stack used: 0 locations
+               Stack size: 8
+
+*
+0000:  MOVLW  00
+0001:  MOVWF  0A
+0002:  GOTO   021
+0003:  NOP
+.................... /* 
+....................   AUTOR: MICROSIDE TECHNOLOGY S.A. DE C.V. 
+....................   FECHA: JUNIO 2019 
+.................... */ 
+....................  
+.................... /* 
+.................... ------------------------------------------------------------------------------------------ 
+....................  Implementar un contador binario que incrementará cada vez que se presione un botón, 
+....................  este será configurado como entrada digital. Para visualizar el conteo se utilizan 8 LEDs. 
+.................... ------------------------------------------------------------------------------------------ 
+.................... */ 
+....................  
+.................... #include <16F887.h>                            //Incluye el microcontrolador con el que se va a trabajar  
+.................... //////////// Standard Header file for the PIC16F887 device //////////////// 
+.................... /////////////////////////////////////////////////////////////////////////// 
+.................... ////        (C) Copyright 1996, 2014 Custom Computer Services          //// 
+.................... //// This source code may only be used by licensed users of the CCS C  //// 
+.................... //// compiler.  This source code may only be distributed to other      //// 
+.................... //// licensed users of the CCS C compiler.  No other use, reproduction //// 
+.................... //// or distribution is permitted without written permission.          //// 
+.................... //// Derivative programs created using this software in object code    //// 
+.................... //// form are not restricted in any way.                               //// 
+.................... /////////////////////////////////////////////////////////////////////////// 
+.................... #device PIC16F887 
+....................  
+.................... #list 
+....................  
+.................... #use delay(clock=20Mhz, crystal)                //Tipo de oscilador y frecuencia dependiendo del microcontrolador  
+*
+000D:  MOVLW  21
+000E:  MOVWF  04
+000F:  BCF    03.7
+0010:  MOVF   00,W
+0011:  BTFSC  03.2
+0012:  GOTO   020
+0013:  MOVLW  06
+0014:  MOVWF  78
+0015:  CLRF   77
+0016:  DECFSZ 77,F
+0017:  GOTO   016
+0018:  DECFSZ 78,F
+0019:  GOTO   015
+001A:  MOVLW  7B
+001B:  MOVWF  77
+001C:  DECFSZ 77,F
+001D:  GOTO   01C
+001E:  DECFSZ 00,F
+001F:  GOTO   013
+0020:  RETURN
+....................  
+.................... #define Boton PIN_A2                            //Asigna el pin A2 al boton BOOT del X-TRAINER 
+....................  
+.................... byte cont =0; 
+....................  
+.................... void SisInit (void) 
+....................  
+....................   { 
+....................     set_tris_b (0b00000000);                                      //Configura todo el puerto B como salida 
+*
+0004:  MOVLW  00
+0005:  BSF    03.5
+0006:  MOVWF  06
+....................     set_tris_a (0b11111111);                                      //Configura todo el puerto A como entrada 
+0007:  MOVLW  FF
+0008:  MOVWF  05
+0009:  BCF    03.5
+000A:  BCF    0A.3
+000B:  BCF    0A.4
+000C:  GOTO   037 (RETURN)
+....................   } 
+....................  
+....................   
+.................... void main(void) 
+*
+0021:  MOVF   03,W
+0022:  ANDLW  1F
+0023:  MOVWF  03
+0024:  CLRF   20
+0025:  BSF    03.5
+0026:  BSF    03.6
+0027:  MOVF   09,W
+0028:  ANDLW  C0
+0029:  MOVWF  09
+002A:  BCF    03.6
+002B:  BCF    1F.4
+002C:  BCF    1F.5
+002D:  MOVLW  00
+002E:  BSF    03.6
+002F:  MOVWF  08
+0030:  BCF    03.5
+0031:  CLRF   07
+0032:  CLRF   08
+0033:  CLRF   09
+0034:  BCF    03.7
+....................  
+....................   { 
+....................  
+....................    SisInit (); 
+0035:  BCF    03.6
+0036:  GOTO   004
+....................  
+....................    while (1)                                                     //Mientras sea verdadero se ejecuta el siguiente código 
+....................  
+....................     { 
+....................      if (!input (Boton))                                         //Pregunta el estado del boton 
+0037:  BSF    03.5
+0038:  BSF    05.2
+0039:  BCF    03.5
+003A:  BTFSC  05.2
+003B:  GOTO   04D
+....................  
+....................       { 
+....................         cont++;                                                  //Se incrementa el contador 
+003C:  INCF   20,F
+....................         output_b (cont);                                         //Se asigna el valor del cont al puerto B y se despliega el valor 
+003D:  BSF    03.5
+003E:  CLRF   06
+003F:  BCF    03.5
+0040:  MOVF   20,W
+0041:  MOVWF  06
+....................         Delay_ms (5);                                            //Retardo 
+0042:  MOVLW  05
+0043:  MOVWF  21
+0044:  CALL   00D
+....................         while (!input (Boton));                                  //Mientras el botón se mantenga igual a cero 
+0045:  BSF    03.5
+0046:  BSF    05.2
+0047:  BCF    03.5
+0048:  BTFSS  05.2
+0049:  GOTO   045
+....................         Delay_ms (5);                                            //Retardo 
+004A:  MOVLW  05
+004B:  MOVWF  21
+004C:  CALL   00D
+....................  
+....................      } 
+004D:  GOTO   037
+....................  
+....................    } 
+....................  
+.................... } 
+004E:  SLEEP
+
+Configuration Fuses:
+   Word  1: 2FE2   HS NOWDT PUT MCLR NOPROTECT NOCPD BROWNOUT IESO FCMEN NOLVP NODEBUG
+   Word  2: 3FFF   BORV40 NOWRT
