@@ -1,6 +1,6 @@
 ÀÄContador binario
-   ÀÄMAIN  0/38  Ram=0
+   ÀÄmain  0/40  Ram=0
       ÃÄ@cinit1  (Inline)  Ram=0
-      ÃÄSisInit  0/9  Ram=0
+      ÃÄ@cinit2  (Inline)  Ram=0
       ÃÄ@delay_ms1  0/20  Ram=1
       ÀÄ@delay_ms1  0/20  Ram=1

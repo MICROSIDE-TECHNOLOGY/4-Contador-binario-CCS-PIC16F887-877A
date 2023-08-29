@@ -1,7 +1,7 @@
 [PROJECT]
 Target=Contador binario.hex
 Processor_Text=PIC16F877A
-CCSVersion=5.076
+CCSVersion=5.115d
 Compiler=PCM
 [Target Data]
 FileList=Contador binario.c
@@ -9,15 +9,37 @@ FileList=Contador binario.c
 Type=4
 [mru-list]
 1=Contador binario.c
-[Units]
-Count=1
-1=Contador binario (main)
 
 [defines]
-buildcount=1
+buildcount=4
 
 [ProjectLog]
-Days=1
+Days=2
 D1=24-02-2022
 D1_L=1
 D1_L1=[37562]Project Closed.
+D2=29-08-2023
+D2_L=8
+D2_L1=[51673]Project Opened.
+D2_L2=[51734]Started Editing.
+D2_L3=[52112]Stopped Editing.
+TotalEdit=8
+TotalDebug=0
+D2_E=8
+D2_D=0
+D2_L4=[52112]Project Closed.
+D2_L5=[52338]Project Opened.
+D2_L6=[52346]Started Editing.
+D2_L7=[52385]Stopped Editing.
+D2_L8=[52385]Project Closed.
+
+[fileformats]
+forcecoff=0
+
+[Opened Files]
+1=Contador binario.c
+t1=1
+Count=1
+[Units]
+Count=1
+1=Contador binario (main)
